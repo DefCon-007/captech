@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin">
 
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/wv"
+        ></WebView>
+
     <TextView
         android:id="@+id/movie_name"
         android:layout_width="match_parent"
