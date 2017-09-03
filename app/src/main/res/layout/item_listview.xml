@@ -15,16 +15,29 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textStyle="bold" />
-
-    <RatingBar
-        android:id="@+id/rate_img"
-        style="@style/ratingBarStyle"
-        android:layout_height="wrap_content"
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:id="@+id/rate_img"
+        app:srb_starSize="25dp"
         android:maxWidth="20dp"
         android:minWidth="20dp"
-        android:numStars="5"
-        android:stepSize="0.5" />
+        app:srb_numberOfStars="5"
+        app:srb_stepSize="0.5"
+        app:srb_borderColor="@color/star"
+        app:srb_fillColor="@color/star"
+        />
+    <!--<RatingBar-->
+        <!--android:id="@+id/rate_img"-->
+        <!--style="@style/ratingBarStyle"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:maxWidth="20dp"-->
+        <!--android:minWidth="20dp"-->
+        <!--android:numStars="5"-->
+        <!--android:stepSize="0.5" />-->
 
 </LinearLayout>

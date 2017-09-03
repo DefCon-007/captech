@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">"Cap Tecg Hackathon App "</string>
+    <string name="app_name">"Film AI "</string>
     <string name="server_ip">http://snorloks.southindia.cloudapp.azure.com</string>
 
     <!--Activity Login-->
@@ -12,6 +12,7 @@
 
 
     <!--Actvity Register-->
+    <string name="activity_register_name">Register</string>
     <string name="activity_register_no_firstname">You forgot to enter your first name</string>
     <string name="activity_register_no_lastname">You forgot to enter your last name</string>
     <string name="activity_register_no_emailid">You forgot to enter your email id</string>
@@ -26,9 +27,11 @@
     <string name="activity_register_success_register_2">. You have been successfully registered. Please login to continue.</string>
     <string name="activity_register_error">"Please try again later"</string>
 
-    <!--Main Item-->
+    <!--Main Activity-->
     <string name="submit_button">Submit</string>
-
+<string name="dup_movie">Movie is already added</string>
+    <string name="rate_movie">Rate the movies</string>
+    <string name="max_movie">You need to rate maximum 5 movies only</string>
     <!--Menu Item-->
     <string name="menuitem_logout">Logout</string>
 </resources>

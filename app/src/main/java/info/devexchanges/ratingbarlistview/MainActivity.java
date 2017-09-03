@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.preference.PreferenceActivity;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -85,18 +87,20 @@ public class MainActivity extends AppCompatActivity {
         movieListAdapter = new movieListAdapter(this,R.layout.item_movielist,arrayList);
         movieListView.setAdapter(movieListAdapter);
         listView.setAdapter(adapter);
-//
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-//                                           int pos, long id) {
-//                ratingList.remove(pos);
-//                adapter = new ListViewAdapter(appCompatActivity, R.layout.item_listview, ratingList);
-//                listView.setAdapter(adapter);
-//                setButtonState();
-//                return true;
-//            }
-//        });
+
+//        listView.setEmptyView(emptyTV);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int pos, long id) {
+                ratingList.remove(pos);
+                adapter = new ListViewAdapter(appCompatActivity, R.layout.item_listview, ratingList);
+                listView.setAdapter(adapter);
+                setButtonState();
+                return true;
+            }
+        });
 
         movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -133,7 +137,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                 if (ratingList.size() == 5 ){
-                    //Show snackbar to rate
+                    if (!(submitButton.isEnabled())){
+                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.rate_movie),
+                            Toast.LENGTH_SHORT).show();}
+                    else {
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.max_movie),
+                                Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 }
 
@@ -142,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
                 if (!(ifListHas(ratingList,movie.getMovieId()))){
                 ratingList.add(movie);}
                 else {
-                    //Show snack bar for duplicate movie
+                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.dup_movie),
+                            Toast.LENGTH_SHORT).show();
+
 
                 }
                 adapter = new ListViewAdapter(appCompatActivity, R.layout.item_listview, ratingList);
@@ -277,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
     private void setButtonState(){
         if (ratingList.size() == 5){
             submitButton.setEnabled(true);
+
         }
         else {
             submitButton.setEnabled(false);
@@ -287,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("HomePage", "Sending data opened in LoginActivity");
         RequestParams params = new RequestParams();
         for (Movie item : dataset) {
+            Log.d("SEND", String.valueOf(item.getRatingStar()));
             params.put(item.getMovieId(),item.getRatingStar());
         }
 //        params.setUseJsonStreamer(true);

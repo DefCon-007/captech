@@ -37,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         initialiseVariables();
         intialiseListeners();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
 //        register.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private void intialiseListeners() {
         register.setOnClickListener(this);
+        login.setOnClickListener(this);
     }
 
     public void sendData() {
@@ -190,7 +192,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //                startActivity(register_new_user);
             case R.id.tv_login :
                 Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
-//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 break;
         }

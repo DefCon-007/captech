@@ -3,6 +3,7 @@ package info.devexchanges.ratingbarlistview;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -89,20 +90,18 @@ public class ResultActivity extends AppCompatActivity {
             SimpleRatingBar ratebar = (SimpleRatingBar) View.inflate(this, R.layout.rating_bar, null);
             Log.d("PRINT",valueStr);
             ratebar.setRating(Float.parseFloat(String.valueOf(valueStr)));
-                if (i%2 == 0) {
-                    newll.setBackgroundColor(getResources().getColor(R.color.black));
-                    ratebar.setFillColor(getResources().getColor(R.color.white));
-                    ratebar.setBorderColor(getResources().getColor(R.color.white));
-
-                }
+            ratebar.setFillColor(getResources().getColor(R.color.star));
+            ratebar.setBorderColor(getResources().getColor(R.color.star));
+            ratebar.setStarCornerRadius((float) 5.0);
                 i = i +1;
                 // Add textview 1
-                TextView textView1 = new TextView(this);
+                TextView textView1 = (TextView) View.inflate(this, R.layout.text_view, null);;
                 LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
                 params1.gravity = Gravity.CENTER_HORIZONTAL;
                 textView1.setLayoutParams(params1);
                 textView1.setText(keyStr);
+            textView1.setTextColor(getResources().getColor(R.color.resultText));
 //                textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
 //                textView1.setGravity(Gravity.CENTER_HORIZONTAL);
                 textView1.setTextSize(30);
@@ -126,7 +125,15 @@ public class ResultActivity extends AppCompatActivity {
                     }
                 });
 
+            View v = new View(this);
+            v.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    5
+            ));
+            v.setBackgroundColor(Color.parseColor("#B3B3B3"));
+
                 container.addView(newll);
+            container.addView(v);
 
 
 

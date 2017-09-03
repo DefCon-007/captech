@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+
 import java.util.List;
 
 import info.devexchanges.ratingbarlistview.Utilities.ApplicationClass;
@@ -47,8 +49,7 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
             //holder.ratingBar.getTag(position);
         }
 
-        holder.ratingBar.setOnRatingBarChangeListener(onRatingChangedListener(holder, position));
-
+        holder.ratingBar.setOnRatingBarChangeListener(onRatingChangeListener(holder, position));
         holder.ratingBar.setTag(position);
         holder.ratingBar.setRating(getItem(position).getRatingStar());
         holder.movieName.setText(getItem(position).getName());
@@ -56,47 +57,85 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
         return convertView;
     }
 
-    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final ViewHolder holder, final int position) {
-        return new RatingBar.OnRatingBarChangeListener() {
+
+    private  SimpleRatingBar.OnRatingBarChangeListener onRatingChangeListener(final ViewHolder holder, final int position) {
+        return new SimpleRatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+            public void onRatingChanged(SimpleRatingBar ratingBar, float v, boolean fromUser) {
                 Movie item = getItem(position);
                 item.setRatingStar(v);
 
-                if (v != 0.0 ){
-                    Log.d("CHECK","V not zero");
-                }
-                else {
-                    Log.d("CHECK","v is zero");
-                }
-
-
-                if (v != 0.0) {
-                    if (item.getInGlobalArray()){
-                        //Removing item if it is present in teh global array
-                        ((ApplicationClass) activity.getApplicationContext()).removeItem(item.getGlobalArrayIndex());
-                        item.setInGlobalArray(false);
-                    }
-                    //Adding item to global array if the rating is not zero
-                    item.setGlobalArrayIndex(((ApplicationClass) activity.getApplicationContext()).addItem(item));
-                    item.setInGlobalArray(true);
-                } else if (item.getInGlobalArray()){
-                    //Removing item if it is present in teh global array
-                    Log.d("REMOVE","Removing " + item.getName() + "With rating " + item.getRatingStar());
-                    ((ApplicationClass) activity.getApplicationContext()).removeItem(item.getGlobalArrayIndex());
-                }
-//                Log.i("Adapter", "star: " + v);
-            Log.i("SIZE", String.valueOf(((ApplicationClass) activity.getApplicationContext()).getSizeToSend()));
+//                if (v != 0.0 ){
+//                    Log.d("CHECK","V not zero");
+//                }
+//                else {
+//                    Log.d("CHECK","v is zero");
+//                }
+//
+//
+//                if (v != 0.0) {
+//                    if (item.getInGlobalArray()){
+//                        //Removing item if it is present in teh global array
+//                        ((ApplicationClass) activity.getApplicationContext()).removeItem(item.getGlobalArrayIndex());
+//                        item.setInGlobalArray(false);
+//                    }
+//                    //Adding item to global array if the rating is not zero
+//                    item.setGlobalArrayIndex(((ApplicationClass) activity.getApplicationContext()).addItem(item));
+//                    item.setInGlobalArray(true);
+//                } else if (item.getInGlobalArray()){
+//                    //Removing item if it is present in teh global array
+//                    Log.d("REMOVE","Removing " + item.getName() + "With rating " + item.getRatingStar());
+//                    ((ApplicationClass) activity.getApplicationContext()).removeItem(item.getGlobalArrayIndex());
+//                }
+////                Log.i("Adapter", "star: " + v);
+//                Log.i("SIZE", String.valueOf(((ApplicationClass) activity.getApplicationContext()).getSizeToSend()));
             }
         };
-    }
+            }
+
+
+
+//    private RatingBar.OnRatingBarChangeListener onRatingChangedListener(final ViewHolder holder, final int position) {
+//        return new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+//                Movie item = getItem(position);
+//                item.setRatingStar(v);
+//
+//                if (v != 0.0 ){
+//                    Log.d("CHECK","V not zero");
+//                }
+//                else {
+//                    Log.d("CHECK","v is zero");
+//                }
+//
+//
+//                if (v != 0.0) {
+//                    if (item.getInGlobalArray()){
+//                        //Removing item if it is present in teh global array
+//                        ((ApplicationClass) activity.getApplicationContext()).removeItem(item.getGlobalArrayIndex());
+//                        item.setInGlobalArray(false);
+//                    }
+//                    //Adding item to global array if the rating is not zero
+//                    item.setGlobalArrayIndex(((ApplicationClass) activity.getApplicationContext()).addItem(item));
+//                    item.setInGlobalArray(true);
+//                } else if (item.getInGlobalArray()){
+//                    //Removing item if it is present in teh global array
+//                    Log.d("REMOVE","Removing " + item.getName() + "With rating " + item.getRatingStar());
+//                    ((ApplicationClass) activity.getApplicationContext()).removeItem(item.getGlobalArrayIndex());
+//                }
+////                Log.i("Adapter", "star: " + v);
+//            Log.i("SIZE", String.valueOf(((ApplicationClass) activity.getApplicationContext()).getSizeToSend()));
+//            }
+//        };
+
 
     private static class ViewHolder {
-        private RatingBar ratingBar;
+        private SimpleRatingBar ratingBar;
         private TextView movieName;
 
         public ViewHolder(View view) {
-            ratingBar = (RatingBar) view.findViewById(R.id.rate_img);
+            ratingBar = (SimpleRatingBar) view.findViewById(R.id.rate_img);
             movieName = (TextView) view.findViewById(R.id.text);
         }
     }
